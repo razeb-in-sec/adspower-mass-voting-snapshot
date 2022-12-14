@@ -1,4 +1,4 @@
-# stargate-roles-stake-farm
+# adspower-mass-voting-snapshot
 
 Массовое голосование на snapshot c помощью Adspower. С помощью данного скрипта вы можете проголосовать на snapshot со всех ваших аккаунтов.
 
