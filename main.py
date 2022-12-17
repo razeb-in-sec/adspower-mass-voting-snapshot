@@ -2,6 +2,7 @@ import requests
 import time
 import random
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -100,6 +101,12 @@ def read_param():
 
     return (id_pass_l, urls_l)
 
+def scroll(driver, px_down=180):
+    ActionChains(driver) \
+        .scroll_by_amount(0, px_down) \
+        .perform()
+    # time.sleep(1)
+
 
 def main():
 
@@ -111,7 +118,7 @@ def main():
     cprint(f'------------------------>      Chanel https://t.me/web3_python        <------------------------', 'green')
     cprint(f'------------------------>     Chat https://t.me/chat_web3_python      <------------------------', 'green')
     cprint(f'------------------------>        Helped you? You can help me.         <------------------------', 'green')
-    cprint(f'------------------------>  0x137223bd1428cf030211A898204f953792C07319 <------------------------', 'green')
+    cprint(f'------------------------>  0x82D2A27A961392125e0253449EcedC43677F7d9F <------------------------', 'green')
     cprint(f'-----------------------------------------------------------------------------------------------', 'green')
 
 
@@ -151,7 +158,7 @@ def main():
                     connect_el.click()
 
                     wait.until(EC.element_to_be_clickable((By.XPATH, '//button[text()=" MetaMask"]'))).click()
-                    time.sleep(random.randint(7, 12))
+                    time.sleep(random.randint(5, 8))
 
                     change_on_last_tab(driver)
                     input = wait.until(EC.element_to_be_clickable((By.ID, 'password')))
@@ -159,11 +166,20 @@ def main():
                     time.sleep(1)
                     input.send_keys(mm_passw)
                     wait.until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Разблокировать"]'))).click()
-                    time.sleep(random.randint(7, 12))
+                    time.sleep(random.randint(5, 8))
                     change_on_last_tab(driver)
+
+                    # может выскачить окно с предложением выбора аккаунта
+                    el = find_element_by_xpath(driver, '//button[text()="Далее"]', True)
+                    if el != None:
+                        el.click()
+                        time.sleep(2)
+                        wait.until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Подключиться"]'))).click()
+                        time.sleep(2)
 
 
                 # начинаем голосовать
+                scroll(driver, 300)
                 wait.until(EC.element_to_be_clickable((By.XPATH, f'//button[text()="{voice_name_b}"]'))).click()
                 time.sleep(random.randint(2, 4))
                 wait.until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Vote"]'))).click()
@@ -209,6 +225,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
